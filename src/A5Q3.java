@@ -13,47 +13,49 @@ import java.util.Stack;
 public class A5Q3 {
 
     public boolean inLang(String word) {
-
+        // initialize the stack
         Stack<Character> stack = new Stack<>();
-        
- 
-//            if(word.indexOf("$"))
-    
-        
 
-        if (word.length() != 0 && word.charAt(word.length() / 2) == '$') {
+        // create two strings to store the orginal word, and one to store it reversed
+        String originalWord = "";
+        String reverseWord = "";
 
-            char[] letters = new char[word.length()];
+        // if the word doesn't contain a '$', automatically return false
+        if (word.charAt(word.length() / 2) != '$') {
+            return false;
 
-            for (int i = 0; i < word.length(); i++) {
-
-                letters[i] = word.charAt(i);
-                stack.push(letters[i]);
+        } else {
+            // takes the first half of the word, in characters, into the stack
+            for (int i = 0; i < word.length() / 2; i++) {
+                stack.push(word.charAt(i));
+            }
+            // the first half of the word is then popped out of the stack, reversing it's order
+            for (int i = 0; i < word.length() / 2; i++) {
+                // store this word as 'originalWord'
+                originalWord += stack.pop();
 
             }
-            char[] check = new char[word.length()];
-            for (int i = 0; i < word.length(); i++) {
-                check[i] = stack.pop();
+            // takes the second half of the word, and stores it as reverse string
+            reverseWord = word.substring((word.length() / 2) + 1, word.length());
 
+            // compare the two strings 'originalWord' and 'reverseWord'
+            // if they are the same
+            if (reverseWord.equals(originalWord)) {
+                // return true
+                return true;
+
+                // otherwise return false
+            } else {
+                return false;
             }
-            for (int i = 0; i < check.length; i++) {
-                if (letters[i] != check[i]) {
-                    return false;
-
-                }
-
-            }
-            return true;
-
         }
-        return false;
 
     }
 
     public static void main(String[] args) {
         A5Q3 testing = new A5Q3();
 
-        System.out.println(testing.inLang("tap$$pat"));
+        System.out.println(testing.inLang("chat$$$tahc"));
 
     }
 
